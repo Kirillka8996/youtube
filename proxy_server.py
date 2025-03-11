@@ -11,7 +11,7 @@ async def main(host, port):
 async def pipe(reader, writer):
     try:
         while not reader.at_eof() and not writer.is_closing():
-            data = await reader.read(8192)  # Увеличиваем размер буфера
+            data = await reader.read(65536)
             if not data:
                 break
             writer.write(data)
@@ -20,7 +20,7 @@ async def pipe(reader, writer):
         writer.close()
 
 async def new_conn(local_reader, local_writer):
-    http_data = await local_reader.read(8192)  # Увеличиваем размер буфера
+    http_data = await local_reader.read(65536)  
 
     try:
         type, target = http_data.split(b"\r\n")[0].split(b" ")[0:2]
@@ -50,9 +50,9 @@ async def new_conn(local_reader, local_writer):
 
 async def fragment_data(local_reader, remote_writer):
     head = await local_reader.read(5)
-    data = await local_reader.read(8192)  # Увеличиваем размер буфера
+    data = await local_reader.read(65536) 
 
-    if all(site not in data for site in BLOCKED):  # Оптимизированная проверка
+    if all(site not in data for site in BLOCKED):
         remote_writer.write(head + data)
         await remote_writer.drain()
         return

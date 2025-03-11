@@ -9,14 +9,11 @@ class ServerGUI:
         self.root.title("Kirillka DPI")
         self.root.geometry("300x300")
 
-        # Тема по умолчанию (светлая)
-        self.theme = "dark"  # Изменено на "dark" для темно-серой темы
+        self.theme = "dark" 
 
-        # Создание виджетов
         self.status_label = tk.Label(root, text="Статус: Остановлен", fg="red")
         self.status_label.pack(pady=20)
 
-        # Указываем одинаковую ширину для всех кнопок
         button_width = 15
 
         self.start_button = tk.Button(root, text="Запустить", command=self.start_server, width=button_width)
@@ -28,7 +25,6 @@ class ServerGUI:
         self.theme_button = tk.Button(root, text="Сменить тему", command=self.toggle_theme, width=button_width)
         self.theme_button.pack(pady=10)
 
-        # Применение темы после создания всех виджетов
         self.apply_theme()
 
         self.server_process = None
@@ -72,7 +68,7 @@ class ServerGUI:
             self.theme_button.configure(bg="white", fg="black")
         else:
             # Темно-серая тема
-            dark_gray = "gray20"  # Стандартный темно-серый цвет в Tkinter
+            dark_gray = "gray20" 
             self.root.configure(bg=dark_gray)
             self.status_label.configure(bg=dark_gray, fg="white")
             self.start_button.configure(bg=dark_gray, fg="white")
